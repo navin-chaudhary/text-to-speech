@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Speech to text</title>
+    <link rel="stylesheet" href="/static/css/app.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <p class="eyebrow">FastAPI · WebSocket streaming</p>
+        <h1>Speech to text</h1>
+        <p class="lede">
+          Stream from your microphone with silence-based chunking, or upload a WAV clip. Audio is sent to this server and
+          transcribed with Google Speech Recognition.
+        </p>
+      </header>
+
+      <main class="grid">
+        <section class="card" aria-labelledby="live-title">
+          <div class="card__head">
+            <h2 id="live-title">Live microphone</h2>
+          </div>
+          <p class="hint">Works best in a quiet room. Stop when finished so the last segment can flush and finalize.</p>
+          <div class="actions">
+            <button type="button" class="btn btn--primary" id="startMicBtn">Start mic</button>
+            <button type="button" class="btn btn--danger" id="stopMicBtn" disabled>Stop &amp; finalize</button>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="file-title">
+          <div class="card__head">
+            <h2 id="file-title">Upload audio</h2>
+          </div>
+          <p class="hint">Send a single file as raw bytes to <code>/transcribe</code> (same flow as before).</p>
+          <input id="audioFile" class="sr-only" type="file" accept="audio/*" />
+          <label class="file" for="audioFile">
+            <span class="file__label" id="fileLabel">Choose file</span>
+          </label>
+          <div class="actions actions--tight">
+            <button type="button" class="btn btn--secondary" id="sendBtn">Transcribe file</button>
+          </div>
+        </section>
+      </main>
+
+      <section class="card card--wide" aria-labelledby="transcript-title">
+        <div class="card__head card__head--split">
+          <h2 id="transcript-title">Transcript</h2>
+          <div class="actions actions--inline">
+            <button type="button" class="btn btn--ghost" id="copyBtn" disabled>Copy</button>
+            <button type="button" class="btn btn--ghost" id="clearBtn">Clear</button>
+          </div>
+        </div>
+        <div class="result" id="result" role="log" aria-live="polite"></div>
+      </section>
+
+      <footer class="status-bar">
+        <span class="status-dot" id="statusDot" aria-hidden="true"></span>
+        <pre class="status" id="status">Idle.</pre>
+      </footer>
+    </div>
+    <script src="/static/js/app.js" defer></script>
+  </body>
+</html>
